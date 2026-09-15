@@ -79,8 +79,6 @@ def main():
     elif kappa < 0.60: print("Interpretation: Moderate agreement")
     elif kappa < 0.80: print("Interpretation: Substantial agreement")
     else: print("Interpretation: Almost perfect agreement")
-    
-    print("\nSAVE THIS KAPPA SCORE! You will need it for the final report.")
 
 if __name__ == "__main__":
     main()
