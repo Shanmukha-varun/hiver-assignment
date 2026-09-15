@@ -1,0 +1,73 @@
+"""
+src/taxonomy.py - Formal definition of the 8 derived intents for @AmazonHelp.
+Derived empirically from clustering and manual inspection of TWCS @AmazonHelp cases.
+"""
+from typing import Dict, List, TypedDict
+
+class IntentDefinition(TypedDict):
+    name: str
+    description: str
+    scope_inclusions: str
+    scope_exclusions: str
+    real_example: str
+
+TAXONOMY: Dict[str, IntentDefinition] = {
+    "ORDER_TRACKING_AND_DELIVERY_STATUS": {
+        "name": "ORDER_TRACKING_AND_DELIVERY_STATUS",
+        "description": "Inquiries regarding the shipping status, transit delay, ETA, or carrier tracking of an in-flight order.",
+        "scope_inclusions": "Late packages, stuck tracking updates, dispatch ETA questions, carrier delivery delays.",
+        "scope_exclusions": "Package marked delivered but not found (classified under PACKAGE_DAMAGED_OR_MISSING).",
+        "real_example": "Hey @AmazonHelp my order was supposed to be delivered yesterday by 8pm but the tracker hasn't updated in two days. Where is it?"
+    },
+    "PACKAGE_DAMAGED_OR_MISSING": {
+        "name": "PACKAGE_DAMAGED_OR_MISSING",
+        "description": "Reports that a shipment was marked delivered but never received, arrived damaged, or had items missing from the box.",
+        "scope_inclusions": "Porch theft, delivered to wrong address, broken item upon arrival, empty box, wrong item inside.",
+        "scope_exclusions": "Standard return requests for working items customer no longer wants (classified under REFUND_AND_RETURN_REQUEST).",
+        "real_example": "Tracking says handed to resident at 3 PM but nobody was home and my porch is empty! Need this resolved immediately."
+    },
+    "REFUND_AND_RETURN_REQUEST": {
+        "name": "REFUND_AND_RETURN_REQUEST",
+        "description": "Requests to initiate a return, inquiries regarding delayed refund processing, or return pickup scheduling.",
+        "scope_inclusions": "Return drop-off questions, return shipping label issues, refund not credited back to bank account.",
+        "scope_exclusions": "Unauthorized charges or fraud (classified under ACCOUNT_ACCESS_AND_SECURITY).",
+        "real_example": "I returned the defective monitor a week ago and drop-off was scanned, but I still have not received my refund to my card."
+    },
+    "SUBSCRIPTION_AND_DIGITAL_SERVICES": {
+        "name": "SUBSCRIPTION_AND_DIGITAL_SERVICES",
+        "description": "Issues related to Amazon Prime memberships, Prime Video streaming, Kindle, Audible, or Amazon Music services.",
+        "scope_inclusions": "Prime auto-renewal cancellations, Prime Video playback errors, Kindle book download failures.",
+        "scope_exclusions": "Physical hardware device malfunctions (e.g., Echo speaker broken).",
+        "real_example": "I was charged $14.99 for Prime this morning even though I cancelled auto-renew last week. Please cancel and refund."
+    },
+    "ACCOUNT_ACCESS_AND_SECURITY": {
+        "name": "ACCOUNT_ACCESS_AND_SECURITY",
+        "description": "Urgent account credential issues, 2-factor authentication lockouts, OTP non-delivery, or suspected account compromise.",
+        "scope_inclusions": "OTP not arriving on phone, locked out due to suspicious activity, unrecognized login attempts, hacked accounts.",
+        "scope_exclusions": "Forgotten password where self-service reset works normally without error.",
+        "real_example": "I'm locked out of my Amazon account and the 2FA SMS code is not sending to my mobile number. Cannot log in to check orders."
+    },
+    "PAYMENT_AND_PROMOTIONAL_PRICING": {
+        "name": "PAYMENT_AND_PROMOTIONAL_PRICING",
+        "description": "Billing anomalies, double charges, payment method declines, gift card redemption errors, or promotional code failures.",
+        "scope_inclusions": "Payment declined despite valid card, gift card balance not applying, checkout promo code not recognized.",
+        "scope_exclusions": "General price matching requests on items already purchased weeks ago.",
+        "real_example": "Tried checking out with promo code SAVE20 but it says invalid code even though the promotion runs until tomorrow."
+    },
+    "PRODUCT_AVAILABILITY_AND_INQUIRY": {
+        "name": "PRODUCT_AVAILABILITY_AND_INQUIRY",
+        "description": "Pre-purchase questions about item stock availability, restocking dates, technical specifications, or third-party sellers.",
+        "scope_inclusions": "Restock timelines, compatibility inquiries, third-party seller legitimacy checks.",
+        "scope_exclusions": "Post-delivery defects (classified under PACKAGE_DAMAGED_OR_MISSING).",
+        "real_example": "When will the Sony WH-1000XM5 in silver be back in stock directly from Amazon? It has been sold out for two weeks."
+    },
+    "SERVICE_COMPLAINT_AND_AGENT_FEEDBACK": {
+        "name": "SERVICE_COMPLAINT_AND_AGENT_FEEDBACK",
+        "description": "Escalated complaints regarding poor agent interactions on phone/chat, delivery driver misconduct, or overall service dissatisfaction.",
+        "scope_inclusions": "Phone support agent hung up, delivery driver drove on lawn/misbehaved, recurring bad customer service.",
+        "scope_exclusions": "Specific shipping delay without explicit complaint about representative conduct.",
+        "real_example": "Your chat representative just disconnected the chat on me mid-conversation after making me wait 45 minutes. Absolutely disgraceful."
+    }
+}
+
+INTENT_NAMES = list(TAXONOMY.keys())
