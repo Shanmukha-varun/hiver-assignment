@@ -45,12 +45,6 @@ def main():
     export_df.to_csv(output_path, index=False)
     
     print(f"\nSuccess! Exported {len(export_df)} cases to {output_path}")
-    print("Next Steps:")
-    print("1. Open the CSV in Excel/Google Sheets.")
-    print("2. Fill in 'true_intent' (must match exact taxonomy names).")
-    print("3. Fill in 'true_escalate' (TRUE or FALSE).")
-    print("4. Fill in 'reference_criteria' (e.g., 'Apologize and ask for order number in DM').")
-    print("5. Save the completed file as 'golden_set_labeled.csv' in the same folder.")
 
 if __name__ == "__main__":
     main()
