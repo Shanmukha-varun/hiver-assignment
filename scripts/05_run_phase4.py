@@ -48,7 +48,6 @@ def main():
         true_intent = row["true_intent"]
         ref = row["reference_criteria"]
         
-        # ... (Keep the rest of the file exactly the same from here down: model predictions, metrics calculation, printing) ...
         # Run predictions
         p_triv = trivial.predict(q)
         p_simp = simple.predict(q)
