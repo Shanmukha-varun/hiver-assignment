@@ -29,7 +29,7 @@ EVAL_POOL_SIZE = 500        # Pool from which the golden eval set is sampled
 
 # Free Model Endpoints & Defaults
 # Supports Groq, Google AI Studio (Gemini OpenAI endpoint), or local Ollama
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq")  # 'groq' | 'gemini' | 'ollama'
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq")  # 'groq' | 'gemini' | 'ollama' (I Use Groq API)
 
 MODELS = {
     "classifier": os.getenv("MODEL_CLASSIFIER", "openai/gpt-oss-20b"),
@@ -39,7 +39,7 @@ MODELS = {
 
 API_KEYS = {
     "groq": os.environ.get("GROQ_API_KEY"),
-    "gemini": os.environ.get("GEMINI_API_KEY"),
+    "gemini": os.environ.get("GEMINI_API_KEY"), # optional 
 }
 
 # Ensure keys are present if we aren't using local Ollama
@@ -48,8 +48,8 @@ if LLM_PROVIDER in ["groq", "gemini"] and not API_KEYS.get(LLM_PROVIDER):
 
 BASE_URLS = {
     "groq": "https://api.groq.com/openai/v1",
-    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/",
-    "ollama": "http://localhost:11434/v1",
+    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/", # optional
+    "ollama": "http://localhost:11434/v1",  # optional
 }
 
 # Embedding Model (Local CPU)
