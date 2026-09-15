@@ -103,7 +103,6 @@ For `@AmazonHelp`, "good" does not mean fully resolving complex billing disputes
 | **Simple Baseline** *(TF-IDF + LR)* | 0.417 | 0.503 | **Corr:** 3.0, **Ground:** 3.5, **Tone:** 3.1, **Act:** 3.0 |
 | **Agent** *(RAG + gpt-4o)* | **0.634** | **0.050** | **Corr:** 3.4, **Ground:** 3.7, **Tone:** 4.2, **Act:** 3.7 |
 
-> **Note:** A grounding ablation study showed that removing RAG exemplars caused the Agent to consistently hallucinate generic support numbers (e.g., `1-800-000...`). RAG is actively anchoring the policy accuracy.
 
 ### 3. Failure Analysis: Top 5 Modes
 1. **Hyper-Aggressive Escalation:** The Agent's Escalation Accuracy (`0.050`) failed because the cost-weighted risk formula threshold ($\alpha_{\text{risk}}$) was tuned far too conservatively. It escalated almost everything, while my human labels only escalated true legal/fraud threats.
@@ -117,7 +116,7 @@ For `@AmazonHelp`, "good" does not mean fully resolving complex billing disputes
 * **The Judge Scores (4.2 Tone) are artificially high:** As proven by the 0.067 Cohen’s Kappa score, the LLM Judge is overly lenient compared to a human reviewer.
 * **Data Staleness:** The Kaggle dataset is from 2017. Amazon's current support policies have likely changed, meaning the RAG retriever is successfully grounding replies on outdated operational procedures.
 
-### 5. What you'd do next with one more week
+### 5. What i can do with one more week.
 1. Implement a structured output validation library like `instructor` or `pydantic` to completely eliminate JSON parsing errors.
 2. Tune the Escalation Risk formula weights using a hyperparameter search against the Golden Set to balance the business cost vs. automation rate.
 3. Implement a multi-label intent classifier to handle compound customer complaints.
